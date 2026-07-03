@@ -448,7 +448,7 @@ function ManualAdd({
         )}
         <button
           type="submit"
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-400 px-6 py-3 font-semibold text-plum-950 shadow-lg transition hover:bg-gold-300 active:scale-[0.98]"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-400 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-gold-500 active:scale-[0.98]"
         >
           <span aria-hidden="true">🎵</span> Add to playlist
         </button>
@@ -497,7 +497,7 @@ function SortButton({
       aria-pressed={active}
       className={[
         "rounded-full px-3 py-1 font-medium transition",
-        active ? "bg-gold-400 text-plum-950" : "text-plum-300 hover:text-white",
+        active ? "bg-gold-400 text-white" : "text-plum-300 hover:text-white",
       ].join(" ")}
     >
       {children}

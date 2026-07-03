@@ -8,27 +8,33 @@
   --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand — deep plum + warm gold + soft blush */
-  --color-plum-50: #faf5fb;
-  --color-plum-100: #f3e6f6;
-  --color-plum-200: #e6cbec;
-  --color-plum-300: #d1a3dc;
-  --color-plum-400: #b671c7;
-  --color-plum-500: #9a4bad;
-  --color-plum-600: #7e3690;
-  --color-plum-700: #662c74;
-  --color-plum-800: #4d2158;
-  --color-plum-900: #351741;
-  --color-plum-950: #22072c;
+  /* Fourth of July theme — deep navy + patriotic red + soft rose.
+     NOTE: token names (plum/gold/blush) are kept so components don't need to
+     change; only their values are remapped to red-white-blue. */
 
-  --color-gold-300: #f7d774;
-  --color-gold-400: #f0c94a;
-  --color-gold-500: #e0b32e;
-  --color-gold-600: #c0951f;
+  /* "plum" scale -> navy / blue (backgrounds, surfaces, muted text) */
+  --color-plum-50: #eef4fb;
+  --color-plum-100: #dbe7f5;
+  --color-plum-200: #b9cdea;
+  --color-plum-300: #8faed9;
+  --color-plum-400: #5f83c0;
+  --color-plum-500: #3a5fa8;
+  --color-plum-600: #2b4890;
+  --color-plum-700: #21386f;
+  --color-plum-800: #182a54;
+  --color-plum-900: #101d3d;
+  --color-plum-950: #0a1430;
 
-  --color-blush-100: #fdeef2;
-  --color-blush-200: #fbd9e2;
-  --color-blush-300: #f7b7c8;
+  /* "gold" scale -> patriotic red (primary accent, CTAs, highlights) */
+  --color-gold-300: #f87171;
+  --color-gold-400: #dc2626;
+  --color-gold-500: #b91c1c;
+  --color-gold-600: #991b1b;
+
+  /* "blush" scale -> soft rose (errors, alerts, required markers) */
+  --color-blush-100: #ffe4e6;
+  --color-blush-200: #fecdd3;
+  --color-blush-300: #fda4af;
 
   --radius-4xl: 2rem;
 }

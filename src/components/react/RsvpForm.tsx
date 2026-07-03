@@ -235,7 +235,7 @@ export default function RsvpForm() {
           <button
             type="submit"
             disabled={submitting}
-            className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-gold-400 px-6 py-3 text-base font-semibold text-plum-950 shadow-lg transition hover:bg-gold-300 hover:shadow-gold-400/30 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-gold-400 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-gold-500 hover:shadow-gold-400/30 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? "Sending…" : attendingYes ? "Send my RSVP" : "Let them know"}
           </button>

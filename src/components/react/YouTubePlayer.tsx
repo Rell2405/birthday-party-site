@@ -154,7 +154,7 @@ export default function YouTubePlayer({
               onClick={playPause}
               disabled={disabled}
               aria-label={playing ? "Pause" : "Play"}
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-400 text-xl text-plum-950 shadow-lg transition hover:bg-gold-300 active:scale-95 disabled:opacity-50"
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-400 text-xl text-white shadow-lg transition hover:bg-gold-500 active:scale-95 disabled:opacity-50"
             >
               {playing ? "⏸" : "▶"}
             </button>
