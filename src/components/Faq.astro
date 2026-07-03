@@ -1,0 +1,22 @@
+---
+import { party } from "../data/party";
+---
+
+<div class="mx-auto max-w-3xl divide-y divide-plum-800/70 rounded-4xl border border-plum-700/60 bg-plum-900/40">
+  {
+    party.faqs.map((faq) => (
+      <details class="group px-6 py-2">
+        <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-left font-semibold text-plum-100 transition hover:text-white">
+          <span>{faq.q}</span>
+          <span
+            aria-hidden="true"
+            class="ml-4 shrink-0 text-gold-400 transition-transform duration-200 group-open:rotate-45"
+          >
+            +
+          </span>
+        </summary>
+        <p class="pb-4 text-plum-300">{faq.a}</p>
+      </details>
+    ))
+  }
+</div>

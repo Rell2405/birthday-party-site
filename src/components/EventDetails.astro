@@ -1,0 +1,55 @@
+---
+import { party } from "../data/party";
+
+const cards = [
+  {
+    icon: "📅",
+    title: "When",
+    lines: [party.date, party.time],
+  },
+  {
+    icon: "📍",
+    title: "Where",
+    lines: [party.venue.name, party.venue.address, party.venue.city],
+    link: { href: party.venue.mapUrl, label: "Open in Maps →" },
+  },
+  {
+    icon: "👗",
+    title: "Dress code",
+    lines: [party.dressCode],
+  },
+];
+---
+
+<div class="grid gap-6 sm:grid-cols-3">
+  {
+    cards.map((card) => (
+      <div class="rounded-4xl border border-plum-700/60 bg-plum-900/50 p-6 transition hover:border-plum-500/70">
+        <div
+          class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-plum-800/70 text-2xl"
+          aria-hidden="true"
+        >
+          {card.icon}
+        </div>
+        <h3 class="font-display text-xl font-semibold text-white">
+          {card.title}
+        </h3>
+        <div class="mt-2 space-y-0.5 text-plum-300">
+          {card.lines.map((line) => (
+            <p>{line}</p>
+          ))}
+        </div>
+        {card.link && (
+          <a
+            href={card.link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-3 inline-block text-sm font-semibold text-gold-400 transition hover:text-gold-300"
+          >
+            {card.link.label}
+          </a>
+        )}
+      </div>
+    ))
+  }
+</div>

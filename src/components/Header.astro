@@ -1,0 +1,50 @@
+---
+import { party } from "../data/party";
+
+const links = [
+  { href: "#details", label: "Details" },
+  { href: "#schedule", label: "Schedule" },
+  { href: "#rsvp", label: "RSVP" },
+  { href: "#playlist", label: "Playlist" },
+  { href: "#faq", label: "FAQ" },
+];
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-plum-800/60 bg-plum-950/80 backdrop-blur-md"
+>
+  <nav
+    aria-label="Primary"
+    class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6"
+  >
+    <a
+      href="#top"
+      class="font-display text-lg font-bold text-white transition hover:text-gold-300"
+    >
+      <span aria-hidden="true">🎂</span>
+      <span class="ml-1">{party.guestOfHonor}'s {party.age}th</span>
+    </a>
+
+    <ul class="hidden items-center gap-1 md:flex">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="rounded-full px-3 py-2 text-sm font-medium text-plum-200 transition hover:bg-plum-800/70 hover:text-white"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      href="#rsvp"
+      class="rounded-full bg-gold-400 px-4 py-2 text-sm font-semibold text-plum-950 transition hover:bg-gold-300"
+    >
+      RSVP
+    </a>
+  </nav>
+</header>

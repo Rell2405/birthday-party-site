@@ -1,0 +1,26 @@
+---
+import { party } from "../data/party";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-plum-800/60 bg-plum-950">
+  <div
+    class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-12 text-center sm:px-6"
+  >
+    <p class="font-display text-2xl font-semibold text-white">
+      Can't wait to celebrate with you 🥳
+    </p>
+    <p class="text-plum-300">
+      Questions? Reach the host at{" "}
+      <a
+        href={`mailto:${party.hostContact}`}
+        class="font-semibold text-gold-400 transition hover:text-gold-300"
+      >
+        {party.hostContact}
+      </a>
+    </p>
+    <p class="mt-4 text-sm text-plum-500">
+      © {year} · {party.title}
+    </p>
+  </div>
+</footer>

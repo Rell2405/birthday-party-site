@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens (Tailwind v4 `@theme`). These generate utility classes such as
+   `bg-plum-600`, `text-gold-400`, `font-display`, etc.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand — deep plum + warm gold + soft blush */
+  --color-plum-50: #faf5fb;
+  --color-plum-100: #f3e6f6;
+  --color-plum-200: #e6cbec;
+  --color-plum-300: #d1a3dc;
+  --color-plum-400: #b671c7;
+  --color-plum-500: #9a4bad;
+  --color-plum-600: #7e3690;
+  --color-plum-700: #662c74;
+  --color-plum-800: #4d2158;
+  --color-plum-900: #351741;
+  --color-plum-950: #22072c;
+
+  --color-gold-300: #f7d774;
+  --color-gold-400: #f0c94a;
+  --color-gold-500: #e0b32e;
+  --color-gold-600: #c0951f;
+
+  --color-blush-100: #fdeef2;
+  --color-blush-200: #fbd9e2;
+  --color-blush-300: #f7b7c8;
+
+  --radius-4xl: 2rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-plum-950);
+  color: var(--color-plum-100);
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Consistent, visible focus ring for keyboard users across the whole site. */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-gold-400);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Utility: skip link that appears on focus. */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  background: var(--color-gold-400);
+  color: var(--color-plum-950);
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+@keyframes float-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-up {
+  animation: float-up 0.7s ease both;
+}

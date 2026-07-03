@@ -1,0 +1,31 @@
+---
+import { party } from "../data/party";
+---
+
+<ol class="mx-auto max-w-2xl">
+  {
+    party.schedule.map((item, i) => (
+      <li class="relative flex gap-5 pb-8 last:pb-0">
+        {/* connector line */}
+        {i < party.schedule.length - 1 && (
+          <span
+            aria-hidden="true"
+            class="absolute left-6 top-12 h-full w-px bg-plum-700/70"
+          />
+        )}
+        <div
+          class="z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-plum-700 bg-plum-900 text-xl"
+          aria-hidden="true"
+        >
+          {item.icon}
+        </div>
+        <div class="flex flex-col pt-1 sm:flex-row sm:items-baseline sm:gap-4">
+          <p class="font-display text-lg font-semibold text-gold-300 sm:w-28 sm:shrink-0">
+            {item.time}
+          </p>
+          <p class="text-lg text-plum-100">{item.label}</p>
+        </div>
+      </li>
+    ))
+  }
+</ol>

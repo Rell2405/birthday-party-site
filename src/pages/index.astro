@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Section from "../components/Section.astro";
+import EventDetails from "../components/EventDetails.astro";
+import Schedule from "../components/Schedule.astro";
+import Faq from "../components/Faq.astro";
+import Footer from "../components/Footer.astro";
+import RsvpForm from "../components/react/RsvpForm.tsx";
+import Playlist from "../components/react/Playlist.tsx";
+---
+
+<Layout>
+  <Header />
+
+  <main id="main">
+    <Hero />
+
+    <Section
+      id="details"
+      eyebrow="The essentials"
+      title="Everything you need to know"
+      subtitle="Mark your calendar and get ready for a night to remember."
+    >
+      <EventDetails />
+    </Section>
+
+    <Section
+      id="schedule"
+      eyebrow="Run of show"
+      title="How the night unfolds"
+      subtitle="A loose plan — come and go as you please."
+      class="border-t border-plum-800/50"
+    >
+      <Schedule />
+    </Section>
+
+    <Section
+      id="rsvp"
+      eyebrow="Save your spot"
+      title="Will you be there?"
+      subtitle="Let us know so we can save you a seat (and a slice of cake)."
+      class="border-t border-plum-800/50"
+    >
+      <RsvpForm client:visible />
+    </Section>
+
+    <Section
+      id="playlist"
+      eyebrow="Set the mood"
+      title="Build the party playlist"
+      subtitle="Add your favourite tracks and upvote the ones you can't wait to hear."
+      class="border-t border-plum-800/50"
+    >
+      <Playlist client:visible />
+    </Section>
+
+    <Section
+      id="faq"
+      eyebrow="Good to know"
+      title="Frequently asked questions"
+      class="border-t border-plum-800/50"
+    >
+      <Faq />
+    </Section>
+  </main>
+
+  <Footer />
+</Layout>
