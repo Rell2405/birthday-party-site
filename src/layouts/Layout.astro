@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import { party } from "../data/party";
+import Fireworks from "../components/react/Fireworks.tsx";
+import SparklerCursor from "../components/react/SparklerCursor.tsx";
 
 interface Props {
   title?: string;
@@ -41,6 +43,8 @@ const {
   </head>
   <body class="min-h-screen antialiased">
     <a href="#main" class="skip-link">Skip to content</a>
+    <Fireworks client:idle />
+    <SparklerCursor client:idle />
     <slot />
   </body>
 </html>

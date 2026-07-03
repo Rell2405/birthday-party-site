@@ -1,0 +1,187 @@
+---
+// Animated, semi-transparent BBQ grill: flickering flames, glowing coals and
+// smoke curling upward. Pure SVG + CSS (no JS). Decorative only, so it's hidden
+// from assistive tech. Global `prefers-reduced-motion` handling in global.css
+// freezes the animations for users who opt out.
+---
+
+<div class="grill pointer-events-none select-none" aria-hidden="true">
+  <svg viewBox="0 0 260 230" width="100%" height="100%" role="img">
+    <!-- Smoke -->
+    <g class="smoke">
+      <circle class="puff puff-1" cx="118" cy="86" r="10" />
+      <circle class="puff puff-2" cx="132" cy="86" r="13" />
+      <circle class="puff puff-3" cx="146" cy="86" r="9" />
+      <circle class="puff puff-4" cx="126" cy="86" r="11" />
+    </g>
+
+    <!-- Coal glow -->
+    <ellipse class="coals" cx="130" cy="96" rx="46" ry="12" />
+
+    <!-- Flames -->
+    <g class="flames" transform="translate(0,96)">
+      <path class="flame flame-1" d="M96 0 C88 -14 90 -30 100 -42 C104 -30 112 -26 108 -12 C118 -20 118 -34 112 -46 C126 -34 128 -12 116 2 Z" />
+      <path class="flame flame-2" d="M126 0 C116 -18 118 -40 130 -56 C136 -40 146 -34 140 -16 C152 -28 150 -48 142 -62 C160 -46 162 -16 146 4 Z" />
+      <path class="flame flame-3" d="M150 0 C142 -14 144 -30 154 -42 C158 -30 166 -26 162 -12 C172 -20 172 -34 166 -46 C180 -34 182 -12 170 2 Z" />
+    </g>
+
+    <!-- Grate + patties -->
+    <ellipse class="grate" cx="130" cy="98" rx="58" ry="15" />
+    <g class="grate-lines">
+      <line x1="82" y1="98" x2="178" y2="98" />
+      <line x1="88" y1="92" x2="172" y2="92" />
+      <line x1="88" y1="104" x2="172" y2="104" />
+    </g>
+    <ellipse class="patty" cx="112" cy="97" rx="13" ry="5.5" />
+    <ellipse class="patty" cx="146" cy="99" rx="14" ry="6" />
+
+    <!-- Kettle bowl -->
+    <path class="bowl" d="M74 100 A56 56 0 0 0 186 100 Z" />
+    <ellipse class="bowl-rim" cx="130" cy="100" rx="58" ry="12" />
+
+    <!-- Legs -->
+    <g class="legs">
+      <line x1="92" y1="150" x2="74" y2="212" />
+      <line x1="168" y1="150" x2="186" y2="212" />
+      <line x1="130" y1="156" x2="130" y2="216" />
+    </g>
+    <!-- Wheels -->
+    <circle class="wheel" cx="72" cy="214" r="7" />
+    <circle class="wheel" cx="188" cy="214" r="7" />
+  </svg>
+</div>
+
+<style>
+  .grill {
+    width: 15rem;
+    max-width: 60vw;
+    opacity: 0.6;
+  }
+  @media (min-width: 640px) {
+    .grill {
+      width: 17rem;
+    }
+  }
+
+  .bowl {
+    fill: #1f2937;
+  }
+  .bowl-rim {
+    fill: #111827;
+    stroke: #374151;
+    stroke-width: 2;
+  }
+  .legs line {
+    stroke: #374151;
+    stroke-width: 5;
+    stroke-linecap: round;
+  }
+  .wheel {
+    fill: #374151;
+  }
+  .grate {
+    fill: rgba(17, 24, 39, 0.6);
+    stroke: #9ca3af;
+    stroke-width: 2;
+  }
+  .grate-lines line {
+    stroke: #9ca3af;
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.7;
+  }
+  .patty {
+    fill: #5b3a26;
+    stroke: #3f2718;
+    stroke-width: 2;
+  }
+
+  .coals {
+    fill: #f97316;
+    filter: blur(6px);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: coal-glow 1.6s ease-in-out infinite;
+  }
+
+  .flame {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    will-change: transform, opacity;
+  }
+  .flame-1 {
+    fill: #fbbf24;
+    animation: flicker 0.5s ease-in-out infinite;
+  }
+  .flame-2 {
+    fill: #f97316;
+    animation: flicker 0.42s ease-in-out infinite;
+    animation-delay: -0.15s;
+  }
+  .flame-3 {
+    fill: #fde68a;
+    animation: flicker 0.56s ease-in-out infinite;
+    animation-delay: -0.28s;
+  }
+
+  .puff {
+    fill: #e2e8f0;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform, opacity;
+  }
+  .puff-1 {
+    animation: rise 4.2s linear infinite;
+  }
+  .puff-2 {
+    animation: rise 5s linear infinite;
+    animation-delay: -1.6s;
+  }
+  .puff-3 {
+    animation: rise 4.6s linear infinite;
+    animation-delay: -3s;
+  }
+  .puff-4 {
+    animation: rise 5.4s linear infinite;
+    animation-delay: -2.3s;
+  }
+
+  @keyframes flicker {
+    0%,
+    100% {
+      transform: scaleY(1) scaleX(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scaleY(1.28) scaleX(0.9);
+      opacity: 1;
+    }
+  }
+
+  @keyframes coal-glow {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scaleX(1);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scaleX(1.06);
+    }
+  }
+
+  @keyframes rise {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.6);
+    }
+    15% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-14px, -90px) scale(1.7);
+    }
+  }
+</style>
