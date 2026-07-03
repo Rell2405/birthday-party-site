@@ -276,8 +276,13 @@ async function handleSongs(
     const body = (await req.json().catch(() => ({}))) as any;
     const title = clampStr(body.title, 120);
     const artist = clampStr(body.artist, 120);
-    if (!title || !artist) {
-      return json({ error: "Title and artist are required." }, 400, env, origin);
+    if (!title && !artist) {
+      return json(
+        { error: "Enter a song title or an artist." },
+        400,
+        env,
+        origin,
+      );
     }
     const yt =
       body.youtube && typeof body.youtube.videoId === "string"

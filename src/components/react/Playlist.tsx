@@ -144,6 +144,7 @@ export default function Playlist() {
               {sorted.map((song, i) => {
                 const hasVoted = voted.includes(song.id);
                 const isActive = song.youtube?.videoId === activeVideoId;
+                const displayName = song.title || song.artist || "this track";
                 return (
                   <li
                     key={song.id}
@@ -165,7 +166,7 @@ export default function Playlist() {
                       <button
                         type="button"
                         onClick={() => setActiveVideoId(song.youtube!.videoId)}
-                        aria-label={`Play ${song.title} by ${song.artist}`}
+                        aria-label={`Play ${displayName}`}
                         className="group relative h-12 w-12 shrink-0 overflow-hidden rounded-lg"
                       >
                         <img
@@ -188,10 +189,14 @@ export default function Playlist() {
                     )}
 
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-semibold text-white">{song.title}</p>
+                      <p className="truncate font-semibold text-white">
+                        {song.title || song.artist || "Untitled"}
+                      </p>
                       <p className="truncate text-sm text-plum-300">
-                        {song.artist}
-                        <span className="text-plum-400"> · {song.addedBy}</span>
+                        {song.title && song.artist && (
+                          <span>{song.artist} · </span>
+                        )}
+                        <span className="text-plum-400">{song.addedBy}</span>
                       </p>
                     </div>
 
@@ -199,7 +204,7 @@ export default function Playlist() {
                       type="button"
                       onClick={() => toggleVote(song.id)}
                       aria-pressed={hasVoted}
-                      aria-label={`${hasVoted ? "Remove your upvote from" : "Upvote"} ${song.title}. Currently ${song.votes} votes.`}
+                      aria-label={`${hasVoted ? "Remove your upvote from" : "Upvote"} ${displayName}. Currently ${song.votes} votes.`}
                       className={[
                         "flex shrink-0 flex-col items-center rounded-xl border px-3 py-1.5 text-sm font-semibold transition active:scale-95",
                         hasVoted
@@ -214,7 +219,7 @@ export default function Playlist() {
                     <button
                       type="button"
                       onClick={() => removeSong(song.id)}
-                      aria-label={`Remove ${song.title} from the playlist`}
+                      aria-label={`Remove ${displayName} from the playlist`}
                       className="shrink-0 rounded-md p-1 text-plum-500 transition hover:text-blush-300"
                     >
                       ✕
@@ -282,7 +287,7 @@ function SearchAdd({
     try {
       await onAdd({
         title: cleanTitle(r.title),
-        artist: r.channel,
+        artist: cleanChannel(r.channel),
         addedBy,
         youtube: { videoId: r.videoId, thumbnail: r.thumbnail, channel: r.channel },
       });
@@ -297,7 +302,7 @@ function SearchAdd({
     <div className="rounded-4xl border border-plum-700/60 bg-plum-900/60 p-6 shadow-xl backdrop-blur sm:p-8">
       <h3 className="font-display text-xl font-semibold text-white">Add a track</h3>
       <p className="mt-1 text-sm text-plum-300">
-        Search YouTube and tap a result to queue it.
+        Search by song title, artist, or both — then tap a result to queue it.
       </p>
 
       <div className="mt-5 grid gap-4">
@@ -309,9 +314,13 @@ function SearchAdd({
             id="song-search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="e.g. Dua Lipa Levitating"
+            placeholder="e.g. “Levitating” or “Dua Lipa”"
+            aria-describedby="song-search-hint"
             className="w-full rounded-xl border border-plum-700 bg-plum-950/60 px-4 py-2.5 text-plum-50 placeholder:text-plum-400 transition focus:border-gold-400 focus:outline-none"
           />
+          <p id="song-search-hint" className="mt-1.5 text-xs text-plum-400">
+            Only know the song or only the artist? Just type what you know.
+          </p>
         </div>
 
         <div>
@@ -383,8 +392,8 @@ function ManualAdd({
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!title.trim() || !artist.trim()) {
-      setErr("Song title and artist are required.");
+    if (!title.trim() && !artist.trim()) {
+      setErr("Enter a song title or an artist.");
       return;
     }
     setErr(null);
@@ -408,7 +417,7 @@ function ManualAdd({
     >
       <h3 className="font-display text-xl font-semibold text-white">Add a track</h3>
       <p className="mt-1 text-sm text-plum-300">
-        Help build the soundtrack for the night.
+        Enter a song title, an artist, or both — whatever you know.
       </p>
       <div className="mt-5 grid gap-4">
         <input
@@ -458,6 +467,16 @@ function cleanTitle(title: string): string {
     .replace(/\bofficial\s+(?:music\s+)?video\b/gi, "")
     .replace(/\s{2,}/g, " ")
     .replace(/\s*[-–]\s*$/, "")
+    .trim()
+    .slice(0, 120);
+}
+
+// Tidy YouTube channel names into something artist-like.
+function cleanChannel(channel: string): string {
+  return channel
+    .replace(/\s*-\s*Topic$/i, "")
+    .replace(/VEVO$/i, "")
+    .replace(/\s*Official$/i, "")
     .trim()
     .slice(0, 120);
 }
