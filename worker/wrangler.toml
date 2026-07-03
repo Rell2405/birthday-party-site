@@ -8,6 +8,6 @@ compatibility_date = "2024-11-01"
 [vars]
 DATA_REPO = "Rell2405/birthday-party-data"
 DATA_BRANCH = "main"
-# Lock this down to your GitHub Pages origin in production, e.g.
-# ALLOWED_ORIGIN = "https://rell2405.github.io"
-ALLOWED_ORIGIN = "*"
+# CORS allowlist. Comma-separated origins, or "*" for any.
+# Production site origin + local dev server:
+ALLOWED_ORIGIN = "https://rell2405.github.io,http://localhost:4321"

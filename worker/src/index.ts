@@ -32,9 +32,17 @@ function json(data: unknown, status = 200, env?: Env, origin?: string) {
 }
 
 function corsHeaders(env?: Env, origin?: string): Record<string, string> {
-  const allowed = env?.ALLOWED_ORIGIN || "*";
-  const allowOrigin =
-    allowed === "*" ? "*" : origin && origin === allowed ? origin : allowed;
+  // ALLOWED_ORIGIN may be "*", a single origin, or a comma-separated allowlist.
+  const list = (env?.ALLOWED_ORIGIN || "*")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const allowAll = list.length === 0 || list.includes("*");
+  const allowOrigin = allowAll
+    ? "*"
+    : origin && list.includes(origin)
+      ? origin
+      : list[0];
   return {
     "access-control-allow-origin": allowOrigin,
     "access-control-allow-methods": "GET,POST,DELETE,OPTIONS",
