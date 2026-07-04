@@ -56,6 +56,9 @@ resolved in `package-lock.json`.
 | `@astrojs/check` | `^0.9.9` | `0.9.9` | `astro check` diagnostics. |
 | `@playwright/test` | `^1.61.1` | `1.61.1` | End-to-end + security tests (Chromium). |
 | `@types/node` | `^26.1.0` | `26.1.0` | Node type definitions. |
+| `satori` | `^0.26.0` | `0.26.0` | Build-time: renders the social-share card (HTML/CSS → SVG). |
+| `satori-html` | `^0.3.2` | `0.3.2` | Build-time: converts an HTML template string into the VNode satori expects. |
+| `@resvg/resvg-js` | `^2.6.2` | `2.6.2` | Build-time: rasterizes satori's SVG to the final `og.png`. |
 
 ### Transitive tooling of note
 
@@ -63,6 +66,20 @@ resolved in `package-lock.json`.
 | --- | --- | --- |
 | **Vite** | `8.1.3` | Bundler/dev server used by Astro (pulled in transitively). |
 | **Playwright Chromium** | bundled with `@playwright/test 1.61.1` | Browser used for the test suite. |
+
+### Social share image (Open Graph)
+
+The 1200×630 link-preview card is generated **at build time** — no external
+image service — by the `src/pages/og.png.ts` endpoint, which is prerendered to
+`dist/og.png` during `astro build` and referenced from `og:image` /
+`twitter:image` in `src/layouts/Layout.astro`.
+
+| Item | Detail |
+| --- | --- |
+| Pipeline | `satori-html` (template → VNode) → `satori` (VNode → SVG) → `@resvg/resvg-js` (SVG → PNG). |
+| Fonts | Vendored **WOFF** files in `src/assets/og-fonts/` (`inter-400`, `inter-700`, `fraunces-700`), read at build via `process.cwd()`. |
+| Font format note | satori accepts `ttf`/`otf`/`woff` but **not** `woff2`; satori converts text to vector paths, so resvg needs no fonts. |
+| Content source | Event details come from `src/data/party.ts` (single source of truth). |
 
 ---
 
